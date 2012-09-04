@@ -1,0 +1,20 @@
+{
+	"schema_version": "1.1",
+	"packages": [
+		{
+			"name": "OpenFromPath",
+			"description": "open file from path.",
+			"author": "astronaughts",
+			"homepage": "http://github.com/astronaughts/SublimeOpenFromPath",
+			"last_modified": "2012-08-25 22:22:22",
+			"platforms": {
+				"*": [
+					{
+						"version": "0.0.1",
+						"url": "http://github.com/astronaughts/OpenFromPath.git"
+					}
+				]
+			}
+		}
+	]
+}
