@@ -1,0 +1,4 @@
+[
+	{ "keys": ["ctrl+shift+o"], "command": "open_from_path" },
+	{ "keys": ["ctrl+shift+h"], "command": "open_from_history" }
+]
