@@ -41,10 +41,10 @@ class OpenFromPathCommand(sublime_plugin.TextCommand):
 
     def open(self, path):
         try:
-            open_given(self.view.window, path)
+            open_given(self.view.window(), path)
             history.append(path)
-        except Exception:
-            sublime.error_message('OpenFromPath [Error]: Could not open this file.')
+        except Exception as e:
+            sublime.error_message('OpenFromPath [Error]: Could not open this file. ' + e.message)
 
 
 class OpenFromHistoryCommand(sublime_plugin.TextCommand):
@@ -61,6 +61,6 @@ class OpenFromHistoryCommand(sublime_plugin.TextCommand):
         try:
             if not history:
                 return
-            open_given(self.view.window, history[index])
+            open_given(self.view.window(), history[index])
         except Exception:
             sublime.error_message('OpenFromPath [Error]: Could not open this file.')
