@@ -26,7 +26,7 @@ def open_given(window, path):
     if os.path.isdir(p):
         sublime_command_line(['-a', p])
     else:
-        window.open_file(path)
+        window.open_file(path, sublime.ENCODED_POSITION)
 
 
 class OpenFromPathCommand(sublime_plugin.TextCommand):
@@ -44,8 +44,8 @@ class OpenFromPathCommand(sublime_plugin.TextCommand):
         try:
             open_given(self.view.window(), path)
             history.append(path)
-        except Exception as e:
-            sublime.error_message('OpenFromPath [Error]: Could not open this file. ' + e.message)
+        except Exception:
+            sublime.error_message('OpenFromPath [Error]: Could not open this file.')
 
 
 class OpenFromHistoryCommand(sublime_plugin.TextCommand):
