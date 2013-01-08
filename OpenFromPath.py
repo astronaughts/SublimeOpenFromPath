@@ -22,8 +22,9 @@ def sublime_command_line(args):
 
 
 def open_given(window, path):
-    if os.path.isdir(path):
-        sublime_command_line(['-a', path])
+    p = os.path.expanduser(path)
+    if os.path.isdir(p):
+        sublime_command_line(['-a', p])
     else:
         window.open_file(path)
 
