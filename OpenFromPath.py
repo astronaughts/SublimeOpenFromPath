@@ -1,13 +1,38 @@
 import sublime
 import sublime_plugin
-import os.path
+import sys
+import os
+import subprocess
+
 
 history = []
+
+
+def get_sublime_path():
+    if sublime.platform() == 'osx':
+        return '/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl'
+    if sublime.platform() == 'linux':
+        return open('/proc/self/cmdline').read().split(chr(0))[0]
+    return sys.executable
+
+
+def sublime_command_line(args):
+    args.insert(0, get_sublime_path())
+    return subprocess.Popen(args)
+
+
+def open_given(window, path):
+    p = os.path.expanduser(path)
+    if os.path.isdir(p):
+        sublime_command_line(['-a', p])
+    else:
+        window.open_file(path, sublime.ENCODED_POSITION)
+
 
 class OpenFromPathCommand(sublime_plugin.TextCommand):
 
     def run(self, edit):
-        panel = self.view.window().show_input_panel(
+        self.view.window().show_input_panel(
             'Open from ...',
             history[0] if history else '',
             self.open,
@@ -17,10 +42,11 @@ class OpenFromPathCommand(sublime_plugin.TextCommand):
 
     def open(self, path):
         try:
-            self.view.window().open_file(path)
+            open_given(self.view.window(), path)
             history.append(path)
-        except Exception as e:
+        except Exception:
             sublime.error_message('OpenFromPath [Error]: Could not open this file.')
+
 
 class OpenFromHistoryCommand(sublime_plugin.TextCommand):
 
@@ -36,7 +62,6 @@ class OpenFromHistoryCommand(sublime_plugin.TextCommand):
         try:
             if not history:
                 return
-
-            self.view.window().open_file(history[index])
-        except Exception as e:
+            open_given(self.view.window(), history[index])
+        except Exception:
             sublime.error_message('OpenFromPath [Error]: Could not open this file.')
