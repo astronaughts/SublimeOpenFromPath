@@ -1,3 +1,4 @@
 [
-  { "caption": "OpenFromPath: Input path", "command": "open" }
+	{ "caption": "OpenFromPath: Input path", "command": "open_from_path" },
+	{ "caption": "OpenFromPath: Select histories", "command": "open_from_history" }
 ]

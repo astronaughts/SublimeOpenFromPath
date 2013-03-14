@@ -29,7 +29,7 @@ def open_given(window, path):
         window.open_file(path, sublime.ENCODED_POSITION)
 
 
-class OpenFromPathCommand(sublime_plugin.TextCommand):
+class OpenFromPath(sublime_plugin.TextCommand):
 
     def run(self, edit):
         self.view.window().show_input_panel(
@@ -48,7 +48,7 @@ class OpenFromPathCommand(sublime_plugin.TextCommand):
             sublime.error_message('OpenFromPath [Error]: Could not open this file.')
 
 
-class OpenFromHistoryCommand(sublime_plugin.TextCommand):
+class OpenFromHistory(sublime_plugin.TextCommand):
 
     def run(self, edit):
         if not history:
